@@ -7,7 +7,7 @@ namespace ButikAPI.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        private readonly DataContext _context;
+        public readonly DataContext _context;
         private DbSet<T> entities;
 
         public BaseRepository(DataContext context)
