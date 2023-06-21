@@ -8,5 +8,6 @@
         public int BranchId { get; set; }
         public double TotalPrice { get; set; }
         public DateTime TransactionDate { get; set; }
+        public double TotalInYear { get; set; }
     }
 }

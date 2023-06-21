@@ -24,8 +24,8 @@ namespace ButikAPI.Controllers
         {
             var vm = new ResponseViewModel<CustomerViewModel>();
 
-            var datas = await _customerRepository.GetCustomerByRegister(filterDto.IsOld);
-            vm.Datas = _mapper.Map<List<CustomerViewModel>>(datas);
+            var datas = await _customerRepository.GetCustomerByRegister(filterDto);
+            vm.Datas = datas; ;
 
             return Ok(vm);
         }
@@ -34,8 +34,8 @@ namespace ButikAPI.Controllers
         {
             var vm = new ResponseViewModel<CustomerViewModel>();
 
-            var datas = await _customerRepository.GetTopTen(filterDto.BranchId);
-            vm.Datas = _mapper.Map<List<CustomerViewModel>>(datas);
+            var datas = await _customerRepository.GetTopTen(filterDto);
+            vm.Datas = datas; ;
 
             return Ok(vm);
         }

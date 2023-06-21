@@ -25,8 +25,8 @@ namespace ButikAPI.Controllers
         {
             var vm = new ResponseViewModel<ProductViewModel>();
 
-            var datas = await _productRepository.GetProductWithHighLowPrice(filterDto.IsHigh);
-            vm.Datas = _mapper.Map<List<ProductViewModel>>(datas);
+            var datas = await _productRepository.GetProductWithHighLowPrice(filterDto);
+            vm.Datas = datas;
 
             return Ok(vm);
         }
@@ -34,10 +34,10 @@ namespace ButikAPI.Controllers
         [HttpPost("topTen")]
         public async Task<ActionResult> GetTopTen(FilterDto filterDto)
         {
-            var vm = new ResponseViewModel<CustomerViewModel>();
+            var vm = new ResponseViewModel<ProductViewModel>();
 
-            var datas = await _productRepository.GetTopTen(filterDto.BranchId);
-            vm.Datas = _mapper.Map<List<CustomerViewModel>>(datas);
+            var datas = await _productRepository.GetTopTen(filterDto);
+            vm.Datas = datas;
 
             return Ok(vm);
         }

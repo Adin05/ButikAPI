@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ButikAPI.Data;
+using ButikAPI.DTOs;
 using ButikAPI.Interfaces;
 using ButikAPI.Models;
 using ButikAPI.ViewModels;
@@ -16,19 +17,19 @@ namespace ButikAPI.Repositories
             this._mapper = mapper;
         }
 
-        public async Task<List<CustomerViewModel>> GetCustomerByRegister(bool isOld)
+        public async Task<List<CustomerViewModel>> GetCustomerByRegister(FilterDto filterDto)
         {
             var datas = await _context.Customers.OrderBy(m => m.RegisteredDate).ToListAsync();
-            if (isOld)
+            if (filterDto.IsOld)
             {
                 datas = datas.OrderByDescending(m => m.RegisteredDate).ToList();
             }
             return _mapper.Map<List<CustomerViewModel>>(datas);
         }
 
-        public async Task<List<CustomerViewModel>> GetTopTen(int branchId)
+        public async Task<List<CustomerViewModel>> GetTopTen(FilterDto filterDto)
         {
-            var customerIds = await _context.Transactions.Where(m => m.BranchId == branchId && m.TransactionDate.Month == DateTime.UtcNow.Month)
+            var customerIds = await _context.Transactions.Where(m => m.BranchId == filterDto.BranchId && m.TransactionDate.Month == filterDto.Month)
                 .GroupBy(m => m.CustomerId)
                 .Select(m => new
                 {

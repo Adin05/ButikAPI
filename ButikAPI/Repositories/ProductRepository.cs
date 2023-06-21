@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ButikAPI.Data;
+using ButikAPI.DTOs;
 using ButikAPI.Interfaces;
 using ButikAPI.Models;
 using ButikAPI.ViewModels;
@@ -16,10 +17,10 @@ namespace ButikAPI.Repositories
             this._mapper = mapper;
         }
 
-        public async Task<List<ProductViewModel>> GetProductWithHighLowPrice(bool isHigh)
+        public async Task<List<ProductViewModel>> GetProductWithHighLowPrice(FilterDto filterDto)
         {
             var product = await _context.Products.OrderBy(m => m.Price).ToListAsync();
-            if (isHigh)
+            if (filterDto.IsHigh)
             {
                 product = product.OrderByDescending(m => m.Price).ToList();
             }
@@ -27,9 +28,9 @@ namespace ButikAPI.Repositories
             return _mapper.Map<List<ProductViewModel>>(product);
         }
 
-        public async Task<List<ProductViewModel>> GetTopTen(int branchId)
+        public async Task<List<ProductViewModel>> GetTopTen(FilterDto filterDto)
         {
-            var productIds = await _context.Transactions.Where(m => m.BranchId == branchId && m.TransactionDate.Month == DateTime.UtcNow.Month)
+            var productIds = await _context.Transactions.Where(m => m.BranchId == filterDto.BranchId && m.TransactionDate.Month == filterDto.Month)
                 .GroupBy(m => m.ProductId)
                 .Select(m => new
                 {
