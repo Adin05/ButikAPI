@@ -1,11 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using ButikAPI.DTOs;
+using ButikAPI.Interfaces;
+using ButikAPI.Models;
+using ButikAPI.ViewModels;
 
 namespace ButikAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TransactionController : ControllerBase
+    public class TransactionController : BaseApiController<Transaction, TransactionViewModel, TransactionDto>
     {
+        private readonly IBaseRepository<Transaction> _baseRepository;
+        private readonly IMapper _mapper;
+
+        public TransactionController(IBaseRepository<Transaction> baseRepository, IMapper mapper) : base(baseRepository, mapper)
+        {
+            _baseRepository = baseRepository;
+            _mapper = mapper;
+        }
     }
 }

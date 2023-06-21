@@ -9,3 +9,5 @@ package:
 	Microsoft.EntityFrameworkCore.Design
 	Microsoft.EntityFrameworkCore.SqlServer
 	Microsoft.EntityFrameworkCore.Tools
+	AutoMapper
+	AutoMapper.Extensions.Microsoft.DependencyInjection

@@ -1,8 +1,8 @@
 ﻿namespace ButikAPI.ViewModels
 {
-    public class BaseViewModel<T>
+    public class ResponseViewModel<T>
     {
-        public BaseViewModel()
+        public ResponseViewModel()
         {
         }
 
